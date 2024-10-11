@@ -1,81 +1,92 @@
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCSSExtractPlugin = require('mini-css-extract-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const MiniCSSExtractPlugin = require('mini-css-extract-plugin')
+const path = require('path')
 
 module.exports = {
     entry: path.resolve(__dirname, '../src/script.js'),
-    output: {
+    output:
+    {
         hashFunction: 'xxhash64',
         filename: 'bundle.[contenthash].js',
-        path: path.resolve(__dirname, '../dist'),
-        publicPath: '/',  // Kök dizinden dosya yollarını belirtir
+        path: path.resolve(__dirname, '../dist')
     },
     devtool: 'source-map',
-    plugins: [
+    plugins:
+    [
         new CopyWebpackPlugin({
             patterns: [
-                { from: path.resolve(__dirname, '../static'), to: 'static' }
+                { from: path.resolve(__dirname, '../static') }
             ]
         }),
         new HtmlWebpackPlugin({
-            template: path.resolve(__dirname, '../public/index.html'),
-            filename: 'index.html',
-            inject: 'body',  // Otomatik olarak CSS ve JS dosyalarını inject eder
+            template: path.resolve(__dirname, '../src/index.html'),
             minify: true
         }),
-        new MiniCSSExtractPlugin({
-            filename: '[name].[contenthash].css',
-        })
+        new MiniCSSExtractPlugin()
     ],
-    module: {
-        rules: [
-            // HTML Loader
+    module:
+    {
+        rules:
+        [
+            // HTML
             {
                 test: /\.(html)$/,
-                use: ['html-loader']
+                use:
+                [
+                    'html-loader'
+                ]
             },
-            // JavaScript Loader
+
+            // JS
             {
                 test: /\.js$/,
                 exclude: /node_modules/,
-                use: ['babel-loader']
+                use:
+                [
+                    'babel-loader'
+                ]
             },
-            // CSS Loader
+
+            // CSS
             {
                 test: /\.css$/,
-                use: [MiniCSSExtractPlugin.loader, 'css-loader']
+                use:
+                [
+                    MiniCSSExtractPlugin.loader,
+                    'css-loader'
+                ]
             },
-            // Image Loader
+
+            // Images
             {
-                test: /\.(jpg|png|gif|svg|webp)$/,
+                test: /\.(jpg|png|gif|svg)$/,
                 type: 'asset/resource',
-                generator: {
+                generator:
+                {
                     filename: 'assets/images/[hash][ext]'
                 }
             },
-            // Font Loader
+
+            // Fonts
             {
                 test: /\.(ttf|eot|woff|woff2)$/,
                 type: 'asset/resource',
-                generator: {
+                generator:
+                {
                     filename: 'assets/fonts/[hash][ext]'
                 }
             },
-            // Shader Loader
+
+            // Shaders
             {
                 test: /\.(glsl|vs|fs|vert|frag)$/,
                 type: 'asset/source',
-                generator: {
-                    filename: 'assets/shaders/[hash][ext]'
+                generator:
+                {
+                    filename: 'assets/images/[hash][ext]'
                 }
-            }
+                }
         ]
-    },
-    optimization: {
-        splitChunks: {
-            chunks: 'all',
-        },
-    },
-
-};
+    }
+}

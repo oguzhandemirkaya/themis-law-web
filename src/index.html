@@ -8,16 +8,16 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Josefin+Sans&family=Nanum+Myeongjo&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../src/main.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
 
 
 
 </head>
 <body>
-
     <div id="mobile-alert">
         Bu web sitesini daha iyi görüntülemek için lütfen masaüstü cihazınızı kullanın.
     </div>
-
     <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
     <div id="loading-text-intro"><p>Yükleniyor</p></div>
 
@@ -27,7 +27,7 @@
             <a href="#services" class="a"><span>Hizmetler</span></a>
             <a href="#about" class="a"><span>Hakkımızda</span></a>
             <a href="#contact" class="a"><span>İletişim</span></a>
-         
+            <div class="cursor"></div>
         </nav>
 
         <div id="home" class="first">
@@ -109,8 +109,9 @@
         <h4 class="footer">Created by Oguzhan <a href="https://oguzhandemirkaya.com" target="_blank">
     </div>
 
-      <script>
-        // Kullanıcı mobil cihaz kullanıyorsa uyarı mesajını göster
+    <script src="../src/script.js" type="module" defer></script>
+    <script>
+        // Kullanıcı mobil cihaz kullanıyorsa uyarı mesajını göster - Show warning message if user is using a mobile device
         window.addEventListener('load', function () {
             const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
             if (isMobile) {
@@ -118,6 +119,6 @@
             }
         });
     </script>
-    
+
 </body>
 </html>
