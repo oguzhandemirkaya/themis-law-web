@@ -683,3 +683,19 @@ body {
 html {
     scroll-behavior: smooth; /* Pürüzsüz kaydırma etkisi sağlar */
 }
+
+@media only screen and (max-width: 768px) {
+    #desktop-alert {
+      display: block;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: #f44336;
+      color: white;
+      text-align: center;
+      padding: 10px;
+      z-index: 9999;
+    }
+  }
+  
