@@ -1,14 +1,15 @@
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCSSExtractPlugin = require('mini-css-extract-plugin');
-const path = require('path');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     entry: path.resolve(__dirname, '../src/script.js'),
     output: {
         hashFunction: 'xxhash64',
         filename: 'bundle.[contenthash].js',
-        path: path.resolve(__dirname, '../dist')
+        path: path.resolve(__dirname, '../dist'),
+        publicPath: '/',  // Kök dizinden dosya yollarını belirtir
     },
     devtool: 'source-map',
     plugins: [
@@ -19,84 +20,51 @@ module.exports = {
         }),
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, '../public/index.html'),
+            filename: 'index.html',
+            inject: 'body',  // Otomatik olarak CSS ve JS dosyalarını inject eder
             minify: true
         }),
         new MiniCSSExtractPlugin({
-            filename: '[name].[contenthash].css'
+            filename: '[name].[contenthash].css',
         })
     ],
     module: {
         rules: [
-            // HTML
+            // HTML Loader
             {
-                test: /\.(html)$/i,
-                use: [
-                    'html-loader'
-                ]
+                test: /\.(html)$/,
+                use: ['html-loader']
             },
-
-            // JS
+            // JavaScript Loader
             {
-                test: /\.js$/i,
+                test: /\.js$/,
                 exclude: /node_modules/,
-                use: [
-                    'babel-loader'
-                ]
+                use: ['babel-loader']
             },
-
-            // CSS
+            // CSS Loader
             {
-                test: /\.css$/i,
-                use: [
-                    MiniCSSExtractPlugin.loader,
-                    'css-loader'
-                ]
+                test: /\.css$/,
+                use: [MiniCSSExtractPlugin.loader, 'css-loader']
             },
-
-            // Images
+            // Image Loader
             {
-                test: /\.(jpg|png|gif|svg|webp)$/i,
+                test: /\.(jpg|png|gif|svg|webp)$/,
                 type: 'asset/resource',
                 generator: {
                     filename: 'assets/images/[hash][ext]'
-                },
-                use: [
-                    {
-                        loader: 'image-webpack-loader',
-                        options: {
-                            mozjpeg: {
-                                progressive: true,
-                            },
-                            optipng: {
-                                enabled: true,
-                            },
-                            pngquant: {
-                                quality: [0.65, 0.90],
-                                speed: 4
-                            },
-                            gifsicle: {
-                                interlaced: false,
-                            },
-                            webp: {
-                                quality: 75
-                            }
-                        }
-                    }
-                ]
+                }
             },
-
-            // Fonts
+            // Font Loader
             {
-                test: /\.(ttf|eot|woff|woff2)$/i,
+                test: /\.(ttf|eot|woff|woff2)$/,
                 type: 'asset/resource',
                 generator: {
                     filename: 'assets/fonts/[hash][ext]'
                 }
             },
-
-            // Shaders
+            // Shader Loader
             {
-                test: /\.(glsl|vs|fs|vert|frag)$/i,
+                test: /\.(glsl|vs|fs|vert|frag)$/,
                 type: 'asset/source',
                 generator: {
                     filename: 'assets/shaders/[hash][ext]'
@@ -107,17 +75,6 @@ module.exports = {
     optimization: {
         splitChunks: {
             chunks: 'all',
-            minSize: 20000,
-            maxSize: 50000,  // Daha küçük boyutlarda parçalara ayırın
-            automaticNameDelimiter: '-',
-            cacheGroups: {
-                vendors: {
-                    test: /[\\/]node_modules[\\/]/,
-                    name: 'vendors',
-                    chunks: 'all',
-                    enforce: true
-                }
-            }
         },
     },
 
