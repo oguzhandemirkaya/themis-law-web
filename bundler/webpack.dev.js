@@ -3,6 +3,7 @@ const { merge } = require('webpack-merge');
 const commonConfiguration = require('./webpack.common.js');
 const ip = require('internal-ip');
 const portFinderSync = require('portfinder-sync');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 const infoColor = (_message) => {
     return `\u001b[1m\u001b[34m${_message}\u001b[39m\u001b[22m`;
@@ -23,8 +24,8 @@ module.exports = merge(
             watchFiles: ['src/**', 'public/**'],
             static: {
                 watch: true,
-                directory: path.join(__dirname, '../public')
-            },
+                directory: path.join(__dirname, '../static') 
+            },            
             client: {
                 logging: 'none',
                 overlay: true,
@@ -39,6 +40,12 @@ module.exports = merge(
 
                 console.log(`Project running at:\n  - ${infoColor(domain1)}\n  - ${infoColor(domain2)}`);
             }
-        }
+        },
+        plugins: [
+         //   new BundleAnalyzerPlugin({
+             //   analyzerMode: 'server',  // Geliştirme sunucusunda analiz
+            //    openAnalyzer: true,  // Analiz penceresini aç
+        //    }),
+        ]
     }
 );
