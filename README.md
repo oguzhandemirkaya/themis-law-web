@@ -1,3 +1,13 @@
+# Themis Law Firm Website
+
+This project is an interactive and modern website for Themis Law Firm. It allows users to learn more about the firm, explore its services, and contact the lawyers. The project utilizes **Three.js** to display interactive 3D models with animations. Additionally, it is built and optimized using **Webpack**.
+
+## Features
+
+- **Interactive Loading Animation**: A sleek loading animation is shown while the page loads.
+- **3D Model Support**: Uses **Three.js** to dynamically load models from Blender and display them in the scene.
+- **Scene Transitions**: When users switch between different services, the scene updates with relevant models and content via smooth animations.
+- **Responsive Design**: The website is optimized for desktop devices and displays a warning message for mobile users.
 - **Contact Form**: Users can fill out a contact form to get in touch with the lawyers.
 - **Webpack Build Process**: Configured with Webpack, the project has separate settings for development and production environments.
 
