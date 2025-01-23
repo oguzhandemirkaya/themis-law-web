@@ -545,7 +545,7 @@ body {
 
 /* İlk avukat kısmı - First lawyer part */
 .lawyer-1 {
-    flex-direction: row; /* Fotoğraf solda, yazı sağda - Photo on the left, text on the right  */
+    flex-direction: row; 
 }
 
 .lawyer-1 .lawyer-photo {
@@ -666,17 +666,17 @@ body {
 
 
 html {
-    scroll-behavior: smooth; /*scroll down for navbar - navbar için aşağıya pürüssüz scroll*/
+    scroll-behavior: smooth; 
 }
 
 #mobile-alert {
-    display: none; /* Başlangıçta gizli */
+    display: none;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     padding: 15px;
-    background-color: #f44336; /* Kırmızı arka plan */
+    background-color: #f44336; 
     color: white;
     text-align: center;
     z-index: 1000;
